@@ -20,13 +20,13 @@ namespace VehicleAgency
             var context = new ProcessUserSelectionContext()
             {
                 VehiclesManager = repository,
-                VehicleInfoInput = () => InputVehicle(),
+                VehicleInfoInput = () => ReadVehicleInfoFromConsole(),
                 LicensePlateInput = () => GetLicensePlateInput(),
                 ManufacturerInput = () => GetInput("manufacturer"),
                 DataFilePath = dataFilePath,
-                SearchCriteriaInput = () => GetSelectedVehiclesSearchtCriteria(),
+                SearchCriteriaInput = () => GetSelectedCriteria(typeof(VehiclesSearchCriteria), "Select search criteria:"),
                 ProductionYearInput = () => GetNumericInput("production year", 1886, DateTime.Now.Year),
-                SortCriteriaInput = () => GetSelectedVehiclesSortCriteria()
+                SortCriteriaInput = () => GetSelectedCriteria(typeof(VehiclesSortCriteria), "Select sort criteria:")
             };
 
             do
@@ -40,7 +40,7 @@ namespace VehicleAgency
 
                 try
                 {
-                    context.Selection = ((UserSelection)selection);
+                    context.Selection = ((UserSelectionMenuOptions)selection);
                     var result = ProcessUserSelection(context);
                     Console.WriteLine("--");
                     if (result is Vehicle || result is string)
@@ -61,76 +61,75 @@ namespace VehicleAgency
                 }
 
             }
-            while (((UserSelection)selection) != UserSelection.Exit);
+            while (((UserSelectionMenuOptions)selection) != UserSelectionMenuOptions.Exit);
         }
 
         private static void PrintUsage()
         {
             Console.WriteLine("--");
             Console.WriteLine("Enter one of the options below:");
-            for (int i = 0; i < Enum.GetNames(typeof(UserSelection)).Length; i++)
+            for (int i = 0; i < Enum.GetNames(typeof(UserSelectionMenuOptions)).Length; i++)
             {
-                Console.WriteLine(GetUserSelectionOptionsLabels((UserSelection)i));
+                Console.WriteLine(GetUserSelectionOptionsLabels((UserSelectionMenuOptions)i));
             }
         }
 
-        private static String GetUserSelectionOptionsLabels(UserSelection selection)
+        private static String GetUserSelectionOptionsLabels(UserSelectionMenuOptions selection)
         {
             var label = $" {(int)selection} -";
             switch (selection)
             {
-                case UserSelection.InputVehicleData:
+                case UserSelectionMenuOptions.InputVehicleData:
                     return $"{label} Input Vehicle Data";
-                case UserSelection.RemoveVehicle:
+                case UserSelectionMenuOptions.RemoveVehicle:
                     return $"{label} Remove Vehicle";
-                case UserSelection.PrintVehiclesToScreen:
+                case UserSelectionMenuOptions.PrintVehiclesToScreen:
                     return $"{label} Print Vehicles to Screen";
-                case UserSelection.SaveVehiclesToFile:
+                case UserSelectionMenuOptions.SaveVehiclesToFile:
                     return $"{label} Save Vehicles to File";
-                case UserSelection.LoadVehiclesFromFile:
+                case UserSelectionMenuOptions.LoadVehiclesFromFile:
                     return $"{label} Load Vehicles from File";
-                case UserSelection.GetLatetstVehicleEntry:
+                case UserSelectionMenuOptions.GetLatetstVehicleEntry:
                     return $"{label} Get Latest Vehicle Entry";
-                case UserSelection.SortVehicles:
+                case UserSelectionMenuOptions.SortVehicles:
                     return $"{label} Sort Vehicles";
-                case UserSelection.SearchForVehicles:
+                case UserSelectionMenuOptions.SearchForVehicles:
                     return $"{label} Search Vehicles";
-                case UserSelection.Exit:
+                case UserSelectionMenuOptions.Exit:
                     return $"{label} Exit";
                 default:
                     return string.Empty;
             }
         }
 
-
         public static object ProcessUserSelection(ProcessUserSelectionContext context)
         {
             switch (context.Selection)
             {
-                case UserSelection.InputVehicleData:
+                case UserSelectionMenuOptions.InputVehicleData:
                     AddVehicle(context.VehiclesManager, context.VehicleInfoInput);
                     break;
-                case UserSelection.RemoveVehicle:
+                case UserSelectionMenuOptions.RemoveVehicle:
                     RemoveVehicle(context.VehiclesManager, context.LicensePlateInput);
                     break;
-                case UserSelection.PrintVehiclesToScreen:
+                case UserSelectionMenuOptions.PrintVehiclesToScreen:
                     PrintVehiclesToScreen(context.VehiclesManager.Vehicles);
                     break;
-                case UserSelection.SaveVehiclesToFile:
+                case UserSelectionMenuOptions.SaveVehiclesToFile:
                     context.VehiclesManager.SaveVehicles(context.DataFilePath);
                     break;
-                case UserSelection.LoadVehiclesFromFile:
+                case UserSelectionMenuOptions.LoadVehiclesFromFile:
                     context.VehiclesManager.LoadVehicles(context.DataFilePath);
                     break;
-                case UserSelection.GetLatetstVehicleEntry:
+                case UserSelectionMenuOptions.GetLatetstVehicleEntry:
                     Console.WriteLine("--");
                     Console.WriteLine("Latest vehicle entry:");
                     return (context.VehiclesManager.GetlatestEntry());
-                case UserSelection.SortVehicles:
+                case UserSelectionMenuOptions.SortVehicles:
                     return (SortVehicles(context));
-                case UserSelection.SearchForVehicles:
+                case UserSelectionMenuOptions.SearchForVehicles:
                     return (SearchVehicles(context));
-                case UserSelection.Exit:
+                case UserSelectionMenuOptions.Exit:
                     break;
                 default:
                     throw new NotSupportedException();
@@ -163,11 +162,6 @@ namespace VehicleAgency
                 return vehicles;
             }
             return null;
-        }
-
-        private static int GetSelectedVehiclesSortCriteria()
-        {
-            return GetSelectedCriteria(typeof(VehiclesSortCriteria), "Select sort criteria:");
         }
 
         private static Vehicle[] SearchVehicles(ProcessUserSelectionContext context)
@@ -208,11 +202,6 @@ namespace VehicleAgency
             return null;
         }
 
-        private static int GetSelectedVehiclesSearchtCriteria()
-        {
-            return GetSelectedCriteria(typeof(VehiclesSearchCriteria), "Select search criteria:");
-        }
-
         private static int GetSelectedCriteria(Type options, string label)
         {
 
@@ -220,7 +209,6 @@ namespace VehicleAgency
             var selection = ConsoleMenu.GetUserSelection(0, Enum.GetNames(options).Length - 1);
             return selection;
         }
-
 
         private static void AddVehicle(VehiclesManager repository, Func<Vehicle> vehicleInputProvider)
         {
@@ -262,7 +250,7 @@ namespace VehicleAgency
             Console.WriteLine("-------------------------------------------------");
         }
 
-        private static Vehicle InputVehicle()
+        private static Vehicle ReadVehicleInfoFromConsole()
         {
             int selectedVehicleType = GetSelectedVehicleType();
 
@@ -272,7 +260,8 @@ namespace VehicleAgency
             }
 
             VehicleType vehicleType = (VehicleType)selectedVehicleType;
-            Console.WriteLine($"Enter info for vehicle of type '{vehicleType}'");
+            Console.WriteLine($"Enter info for vehicle of type '{vehicleType}':");
+            Console.WriteLine("--");
             Vehicle vehicle = Vehicle.CreateVehicle(vehicleType);
 
             vehicle.Manufacturer = GetInput("manufacturer");

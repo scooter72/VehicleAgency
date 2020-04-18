@@ -1,13 +1,18 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace VehicleAgency
 {
+    /// <summary>
+    /// Console window mneu utility class
+    /// </summary>
     internal class ConsoleMenu
     {
+        /// <summary>
+        /// Prints the the label and enum names to the console
+        /// </summary>
+        /// <param name="enumType"></param>
+        /// <param name="label"></param>
         internal static void PrintMenu(Type enumType, string label)
         {
             string[] optionsNames = Enum.GetNames(enumType);
@@ -21,6 +26,13 @@ namespace VehicleAgency
             Console.WriteLine("Hit Backspace key to go back to previous menu.");
         }
 
+        /// <summary>
+        /// Reads input from the console enables the user to cancel using Backspace key.
+        /// The input gets also validated using the min max arguments.
+        /// </summary>
+        /// <param name="min"></param>
+        /// <param name="max"></param>
+        /// <returns></returns>
         internal static int GetUserSelection(int min, int max)
         {
             ConsoleKeyInfo cki;

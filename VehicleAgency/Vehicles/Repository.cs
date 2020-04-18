@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
-namespace VehicleAgency
+namespace VehicleAgency.Vehicles
 {
     internal class Repository
     {

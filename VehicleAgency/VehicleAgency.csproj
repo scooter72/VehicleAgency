@@ -44,21 +44,21 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ProcessUserSelectionContext.cs" />
-    <Compile Include="Repository.cs" />
-    <Compile Include="UserSelection.cs" />
+    <Compile Include="Vehicles\Repository.cs" />
+    <Compile Include="UserSelectionMenuOptions.cs" />
     <Compile Include="Util.cs" />
     <Compile Include="Vehicle.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="VehiclesManager.cs" />
-    <Compile Include="VehiclesSearchCriteria.cs" />
+    <Compile Include="Vehicles\VehiclesSearchCriteria.cs" />
     <Compile Include="Vehicles\Car.cs" />
     <Compile Include="Vehicles\Motorcycle.cs" />
     <Compile Include="Vehicles\SportUtilityVehicle.cs" />
     <Compile Include="Vehicles\Trailer.cs" />
     <Compile Include="Vehicles\Truck.cs" />
-    <Compile Include="VehiclesSortCriteria.cs" />
-    <Compile Include="VehicleType.cs" />
+    <Compile Include="Vehicles\VehiclesSortCriteria.cs" />
+    <Compile Include="Vehicles\VehicleType.cs" />
     <Compile Include="ConsoleMenu.cs" />
   </ItemGroup>
   <ItemGroup>

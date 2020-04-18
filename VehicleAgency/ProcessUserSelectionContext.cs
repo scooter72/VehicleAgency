@@ -9,7 +9,7 @@ namespace VehicleAgency
     public class ProcessUserSelectionContext
     {
         public VehiclesManager VehiclesManager { get; set; }
-        public UserSelection Selection { get; set; }
+        public UserSelectionMenuOptions Selection { get; set; }
         public string DataFilePath { get; set; }
         public Func<Vehicle> VehicleInfoInput { get; set; }
         public Func<string> LicensePlateInput { get; set; }

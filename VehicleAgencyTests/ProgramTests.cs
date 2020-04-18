@@ -23,7 +23,7 @@ namespace VehicleAgency.Tests
             {
                 VehiclesManager = repository,
                 VehicleInfoInput = () => expectedVehicle,
-                Selection = UserSelection.InputVehicleData
+                Selection = UserSelectionMenuOptions.InputVehicleData
             };
             Program.ProcessUserSelection(context);
             CollectionAssert.Contains(repository.Vehicles, expectedVehicle);
@@ -46,7 +46,7 @@ namespace VehicleAgency.Tests
             {
                 VehiclesManager = repository,
                 LicensePlateInput = () => vehicle.LicensePlate,
-                Selection = UserSelection.RemoveVehicle
+                Selection = UserSelectionMenuOptions.RemoveVehicle
             };
             Program.ProcessUserSelection(context);
             CollectionAssert.DoesNotContain(repository.Vehicles, vehicle);
@@ -71,7 +71,7 @@ namespace VehicleAgency.Tests
             {
                 VehiclesManager = repository,
                 LicensePlateInput = () => vehicle.LicensePlate,
-                Selection = UserSelection.SearchForVehicles,
+                Selection = UserSelectionMenuOptions.SearchForVehicles,
                 SearchCriteriaInput = () => (int)VehiclesSearchCriteria.LicensePlate
             };
             var result = Program.ProcessUserSelection(context);
@@ -107,7 +107,7 @@ namespace VehicleAgency.Tests
             {
                 VehiclesManager = repository,
                 LicensePlateInput = () => vehicle.LicensePlate,
-                Selection = UserSelection.GetLatetstVehicleEntry
+                Selection = UserSelectionMenuOptions.GetLatetstVehicleEntry
             };
             var actual = Program.ProcessUserSelection(context);
             Assert.AreEqual(vehicle2, actual);
@@ -130,13 +130,13 @@ namespace VehicleAgency.Tests
             {
                 VehiclesManager = repository,
                 DataFilePath = tempFile,
-                Selection = UserSelection.SaveVehiclesToFile
+                Selection = UserSelectionMenuOptions.SaveVehiclesToFile
             };
             Program.ProcessUserSelection(context);
 
             VehiclesManager repository2 = new VehiclesManager();
             context.VehiclesManager = repository2;
-            context.Selection = UserSelection.LoadVehiclesFromFile;
+            context.Selection = UserSelectionMenuOptions.LoadVehiclesFromFile;
             Program.ProcessUserSelection(context);
             Vehicle actual = null;
 
@@ -160,7 +160,7 @@ namespace VehicleAgency.Tests
             var context = new ProcessUserSelectionContext()
             {
                 VehiclesManager = repository,
-                Selection = UserSelection.GetLatetstVehicleEntry
+                Selection = UserSelectionMenuOptions.GetLatetstVehicleEntry
             };
 
             var vehicles = new Vehicle[] {
@@ -200,7 +200,7 @@ namespace VehicleAgency.Tests
             var context = new ProcessUserSelectionContext()
             {
                 VehiclesManager = repository,
-                Selection = UserSelection.SortVehicles,
+                Selection = UserSelectionMenuOptions.SortVehicles,
                 SortCriteriaInput = () => (int)VehiclesSortCriteria.Manufacturer
             };
 
@@ -245,7 +245,7 @@ namespace VehicleAgency.Tests
             var context = new ProcessUserSelectionContext()
             {
                 VehiclesManager = repository,
-                Selection = UserSelection.SortVehicles,
+                Selection = UserSelectionMenuOptions.SortVehicles,
                 SortCriteriaInput = () => (int)VehiclesSortCriteria.ProductionYear
             };
 
@@ -289,7 +289,7 @@ namespace VehicleAgency.Tests
             var context = new ProcessUserSelectionContext()
             {
                 VehiclesManager = repository,
-                Selection = UserSelection.SortVehicles,
+                Selection = UserSelectionMenuOptions.SortVehicles,
                 SortCriteriaInput = () => (int)VehiclesSortCriteria.ManufacturerAndProductionYear
             };
 
