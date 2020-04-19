@@ -43,9 +43,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ProcessUserSelectionContext.cs" />
+    <Compile Include="Command\CommandBase.cs" />
+    <Compile Include="CommandContext.cs" />
+    <Compile Include="Command\CommandFactory.cs" />
+    <Compile Include="Command\PrintToScreent.cs" />
+    <Compile Include="Command\RemoveVehicle.cs" />
     <Compile Include="Vehicles\Repository.cs" />
-    <Compile Include="UserSelectionMenuOptions.cs" />
+    <Compile Include="CommandTypes.cs" />
     <Compile Include="Util.cs" />
     <Compile Include="Vehicle.cs" />
     <Compile Include="Program.cs" />

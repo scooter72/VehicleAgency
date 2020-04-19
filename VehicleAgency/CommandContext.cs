@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace VehicleAgency
 {
-    public class ProcessUserSelectionContext
+    public class CommandContext
     {
         public VehiclesManager VehiclesManager { get; set; }
-        public UserSelectionMenuOptions Selection { get; set; }
+        public CommandTypes Selection { get; set; }
         public string DataFilePath { get; set; }
         public Func<Vehicle> VehicleInfoInput { get; set; }
         public Func<string> LicensePlateInput { get; set; }

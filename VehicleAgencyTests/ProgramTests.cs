@@ -19,11 +19,11 @@ namespace VehicleAgency.Tests
                 ProductionYear = 2000,
                 LicensePlate = "NY2000",
             };
-            var context = new ProcessUserSelectionContext()
+            var context = new CommandContext()
             {
                 VehiclesManager = repository,
                 VehicleInfoInput = () => expectedVehicle,
-                Selection = UserSelectionMenuOptions.InputVehicleData
+                Selection = CommandTypes.InputVehicleData
             };
             Program.ProcessUserSelection(context);
             CollectionAssert.Contains(repository.Vehicles, expectedVehicle);
@@ -42,11 +42,11 @@ namespace VehicleAgency.Tests
             };
             repository.AddVehicle(vehicle);
             CollectionAssert.Contains(repository.Vehicles, vehicle);
-            var context = new ProcessUserSelectionContext()
+            var context = new CommandContext()
             {
                 VehiclesManager = repository,
                 LicensePlateInput = () => vehicle.LicensePlate,
-                Selection = UserSelectionMenuOptions.RemoveVehicle
+                Selection = CommandTypes.RemoveVehicle
             };
             Program.ProcessUserSelection(context);
             CollectionAssert.DoesNotContain(repository.Vehicles, vehicle);
@@ -67,11 +67,11 @@ namespace VehicleAgency.Tests
             };
             repository.AddVehicle(vehicle);
             CollectionAssert.Contains(repository.Vehicles, vehicle);
-            var context = new ProcessUserSelectionContext()
+            var context = new CommandContext()
             {
                 VehiclesManager = repository,
                 LicensePlateInput = () => vehicle.LicensePlate,
-                Selection = UserSelectionMenuOptions.SearchForVehicles,
+                Selection = CommandTypes.SearchForVehicles,
                 SearchCriteriaInput = () => (int)VehiclesSearchCriteria.LicensePlate
             };
             var result = Program.ProcessUserSelection(context);
@@ -103,11 +103,11 @@ namespace VehicleAgency.Tests
             repository.AddVehicle(vehicle2);
             CollectionAssert.Contains(repository.Vehicles, vehicle);
             CollectionAssert.Contains(repository.Vehicles, vehicle2);
-            var context = new ProcessUserSelectionContext()
+            var context = new CommandContext()
             {
                 VehiclesManager = repository,
                 LicensePlateInput = () => vehicle.LicensePlate,
-                Selection = UserSelectionMenuOptions.GetLatetstVehicleEntry
+                Selection = CommandTypes.GetLatetstVehicleEntry
             };
             var actual = Program.ProcessUserSelection(context);
             Assert.AreEqual(vehicle2, actual);
@@ -126,17 +126,17 @@ namespace VehicleAgency.Tests
             };
             repository.AddVehicle(expectedVehicle);
             var tempFile = Path.GetTempFileName();
-            var context = new ProcessUserSelectionContext()
+            var context = new CommandContext()
             {
                 VehiclesManager = repository,
                 DataFilePath = tempFile,
-                Selection = UserSelectionMenuOptions.SaveVehiclesToFile
+                Selection = CommandTypes.SaveVehiclesToFile
             };
             Program.ProcessUserSelection(context);
 
             VehiclesManager repository2 = new VehiclesManager();
             context.VehiclesManager = repository2;
-            context.Selection = UserSelectionMenuOptions.LoadVehiclesFromFile;
+            context.Selection = CommandTypes.LoadVehiclesFromFile;
             Program.ProcessUserSelection(context);
             Vehicle actual = null;
 
@@ -157,10 +157,10 @@ namespace VehicleAgency.Tests
         public void TestLatestEntry() 
         {
             VehiclesManager repository = new VehiclesManager();
-            var context = new ProcessUserSelectionContext()
+            var context = new CommandContext()
             {
                 VehiclesManager = repository,
-                Selection = UserSelectionMenuOptions.GetLatetstVehicleEntry
+                Selection = CommandTypes.GetLatetstVehicleEntry
             };
 
             var vehicles = new Vehicle[] {
@@ -197,10 +197,10 @@ namespace VehicleAgency.Tests
         public void TestSortVehicleByManufacturer()
         {
             VehiclesManager repository = new VehiclesManager();
-            var context = new ProcessUserSelectionContext()
+            var context = new CommandContext()
             {
                 VehiclesManager = repository,
-                Selection = UserSelectionMenuOptions.SortVehicles,
+                Selection = CommandTypes.SortVehicles,
                 SortCriteriaInput = () => (int)VehiclesSortCriteria.Manufacturer
             };
 
@@ -242,10 +242,10 @@ namespace VehicleAgency.Tests
         public void TestSortVehicleByProductionYear()
         {
             VehiclesManager repository = new VehiclesManager();
-            var context = new ProcessUserSelectionContext()
+            var context = new CommandContext()
             {
                 VehiclesManager = repository,
-                Selection = UserSelectionMenuOptions.SortVehicles,
+                Selection = CommandTypes.SortVehicles,
                 SortCriteriaInput = () => (int)VehiclesSortCriteria.ProductionYear
             };
 
@@ -286,10 +286,10 @@ namespace VehicleAgency.Tests
         public void TestSortVehicleByMAnufacturerAndProductionYear()
         {
             VehiclesManager repository = new VehiclesManager();
-            var context = new ProcessUserSelectionContext()
+            var context = new CommandContext()
             {
                 VehiclesManager = repository,
-                Selection = UserSelectionMenuOptions.SortVehicles,
+                Selection = CommandTypes.SortVehicles,
                 SortCriteriaInput = () => (int)VehiclesSortCriteria.ManufacturerAndProductionYear
             };
 

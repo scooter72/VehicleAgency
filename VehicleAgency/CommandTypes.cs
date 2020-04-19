@@ -1,6 +1,6 @@
 ﻿namespace VehicleAgency
 {
-    public enum UserSelectionMenuOptions
+    public enum CommandTypes
     {
         Exit,
         InputVehicleData,

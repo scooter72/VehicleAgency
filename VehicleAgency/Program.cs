@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using VehicleAgency.Command;
 using VehicleAgency.Vehicles;
 
 namespace VehicleAgency
@@ -17,7 +18,7 @@ namespace VehicleAgency
                 File.CreateText(dataFilePath);
             }
 
-            var context = new ProcessUserSelectionContext()
+            var context = new CommandContext()
             {
                 VehiclesManager = repository,
                 VehicleInfoInput = () => ReadVehicleInfoFromConsole(),
@@ -40,7 +41,7 @@ namespace VehicleAgency
 
                 try
                 {
-                    context.Selection = ((UserSelectionMenuOptions)selection);
+                    context.Selection = ((CommandTypes)selection);
                     var result = ProcessUserSelection(context);
                     Console.WriteLine("--");
                     if (result is Vehicle || result is string)
@@ -61,75 +62,75 @@ namespace VehicleAgency
                 }
 
             }
-            while (((UserSelectionMenuOptions)selection) != UserSelectionMenuOptions.Exit);
+            while (((CommandTypes)selection) != CommandTypes.Exit);
         }
 
         private static void PrintUsage()
         {
             Console.WriteLine("--");
             Console.WriteLine("Enter one of the options below:");
-            for (int i = 0; i < Enum.GetNames(typeof(UserSelectionMenuOptions)).Length; i++)
+            for (int i = 0; i < Enum.GetNames(typeof(CommandTypes)).Length; i++)
             {
-                Console.WriteLine(GetUserSelectionOptionsLabels((UserSelectionMenuOptions)i));
+                Console.WriteLine(GetUserSelectionOptionsLabels((CommandTypes)i));
             }
         }
 
-        private static String GetUserSelectionOptionsLabels(UserSelectionMenuOptions selection)
+        private static String GetUserSelectionOptionsLabels(CommandTypes selection)
         {
             var label = $" {(int)selection} -";
             switch (selection)
             {
-                case UserSelectionMenuOptions.InputVehicleData:
+                case CommandTypes.InputVehicleData:
                     return $"{label} Input Vehicle Data";
-                case UserSelectionMenuOptions.RemoveVehicle:
+                case CommandTypes.RemoveVehicle:
                     return $"{label} Remove Vehicle";
-                case UserSelectionMenuOptions.PrintVehiclesToScreen:
+                case CommandTypes.PrintVehiclesToScreen:
                     return $"{label} Print Vehicles to Screen";
-                case UserSelectionMenuOptions.SaveVehiclesToFile:
+                case CommandTypes.SaveVehiclesToFile:
                     return $"{label} Save Vehicles to File";
-                case UserSelectionMenuOptions.LoadVehiclesFromFile:
+                case CommandTypes.LoadVehiclesFromFile:
                     return $"{label} Load Vehicles from File";
-                case UserSelectionMenuOptions.GetLatetstVehicleEntry:
+                case CommandTypes.GetLatetstVehicleEntry:
                     return $"{label} Get Latest Vehicle Entry";
-                case UserSelectionMenuOptions.SortVehicles:
+                case CommandTypes.SortVehicles:
                     return $"{label} Sort Vehicles";
-                case UserSelectionMenuOptions.SearchForVehicles:
+                case CommandTypes.SearchForVehicles:
                     return $"{label} Search Vehicles";
-                case UserSelectionMenuOptions.Exit:
+                case CommandTypes.Exit:
                     return $"{label} Exit";
                 default:
                     return string.Empty;
             }
         }
 
-        public static object ProcessUserSelection(ProcessUserSelectionContext context)
+        public static object ProcessUserSelection(CommandContext context)
         {
             switch (context.Selection)
             {
-                case UserSelectionMenuOptions.InputVehicleData:
+                case CommandTypes.InputVehicleData:
                     AddVehicle(context.VehiclesManager, context.VehicleInfoInput);
                     break;
-                case UserSelectionMenuOptions.RemoveVehicle:
-                    RemoveVehicle(context.VehiclesManager, context.LicensePlateInput);
+                case CommandTypes.RemoveVehicle:
+                    CommandFactory.ExecuteCommand<object>(CommandTypes.RemoveVehicle, context);
                     break;
-                case UserSelectionMenuOptions.PrintVehiclesToScreen:
-                    PrintVehiclesToScreen(context.VehiclesManager.Vehicles);
+                case CommandTypes.PrintVehiclesToScreen:
+                    CommandFactory.ExecuteCommand<object>(CommandTypes.PrintVehiclesToScreen, context);
                     break;
-                case UserSelectionMenuOptions.SaveVehiclesToFile:
+                case CommandTypes.SaveVehiclesToFile:
                     context.VehiclesManager.SaveVehicles(context.DataFilePath);
                     break;
-                case UserSelectionMenuOptions.LoadVehiclesFromFile:
+                case CommandTypes.LoadVehiclesFromFile:
                     context.VehiclesManager.LoadVehicles(context.DataFilePath);
                     break;
-                case UserSelectionMenuOptions.GetLatetstVehicleEntry:
+                case CommandTypes.GetLatetstVehicleEntry:
                     Console.WriteLine("--");
                     Console.WriteLine("Latest vehicle entry:");
                     return (context.VehiclesManager.GetlatestEntry());
-                case UserSelectionMenuOptions.SortVehicles:
+                case CommandTypes.SortVehicles:
                     return (SortVehicles(context));
-                case UserSelectionMenuOptions.SearchForVehicles:
+                case CommandTypes.SearchForVehicles:
                     return (SearchVehicles(context));
-                case UserSelectionMenuOptions.Exit:
+                case CommandTypes.Exit:
                     break;
                 default:
                     throw new NotSupportedException();
@@ -137,7 +138,7 @@ namespace VehicleAgency
             return null;
         }
 
-        private static Vehicle[] SortVehicles(ProcessUserSelectionContext context)
+        private static Vehicle[] SortVehicles(CommandContext context)
         {
             var selection = context.SortCriteriaInput.Invoke();
             if (selection > -1)
@@ -164,7 +165,7 @@ namespace VehicleAgency
             return null;
         }
 
-        private static Vehicle[] SearchVehicles(ProcessUserSelectionContext context)
+        private static Vehicle[] SearchVehicles(CommandContext context)
         {
             var selection = context.SearchCriteriaInput.Invoke();
 
@@ -223,31 +224,6 @@ namespace VehicleAgency
         {
             Console.WriteLine("Enter license plate:");
             return Console.ReadLine();
-        }
-
-        private static void RemoveVehicle(VehiclesManager repository, Func<string> licensePlateInputProvider)
-        {
-            var licensePlate = licensePlateInputProvider.Invoke();
-            var vehicleToRemove = repository.FindVehicleByLicecnsePlate(licensePlate);
-            if (vehicleToRemove != null)
-            {
-                repository.RemoveVehicle(licensePlate);
-            }
-            else
-            {
-                Console.WriteLine("Vehicle not found");
-            }
-        }
-
-        private static void PrintVehiclesToScreen(Vehicle[] vehicles)
-        {
-            Console.WriteLine($"Printing {vehicles.Length} vehicles in repository");
-            Console.WriteLine("-------------------------------------------------");
-            foreach (var item in vehicles)
-            {
-                Console.WriteLine(item);
-            }
-            Console.WriteLine("-------------------------------------------------");
         }
 
         private static Vehicle ReadVehicleInfoFromConsole()
