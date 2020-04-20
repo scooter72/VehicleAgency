@@ -110,7 +110,6 @@ namespace VehicleAgency
 
         private int GetSelectedCriteria(Type options, string label)
         {
-
             ConsoleMenu.PrintMenu(options, label);
             var selection = ConsoleMenu.GetUserSelection(0, Enum.GetNames(options).Length - 1);
             return selection;
