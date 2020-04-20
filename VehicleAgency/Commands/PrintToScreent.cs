@@ -1,14 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace VehicleAgency.Command
+namespace VehicleAgency.Commands
 {
-    internal sealed class PrintToScreent : CommandBase<object>
+    internal sealed class PrintToScreent : CommandBase<Void>
     {
-        public override object Execute(CommandContext context)
+        public override Void Execute(CommandContext context)
         {
             Console.WriteLine();
             Console.WriteLine($"Printing {context.VehiclesManager.Vehicles.Length} vehicles in repository");

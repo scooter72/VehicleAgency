@@ -11,6 +11,8 @@ namespace VehicleAgency
     {
 
         public int ProductionYear { get; set; }
+
+        public int MaxSpeed { get; set; }
         
         public string Model { get; set; }
 

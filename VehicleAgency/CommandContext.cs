@@ -9,7 +9,7 @@ namespace VehicleAgency
     public class CommandContext
     {
         public VehiclesManager VehiclesManager { get; set; }
-        public CommandTypes Selection { get; set; }
+        public Command Command { get; set; }
         public string DataFilePath { get; set; }
         public Func<Vehicle> VehicleInfoInput { get; set; }
         public Func<string> LicensePlateInput { get; set; }

@@ -43,13 +43,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Command\CommandBase.cs" />
+    <Compile Include="Commands\AddVehicle.cs" />
+    <Compile Include="Commands\CommandBase.cs" />
     <Compile Include="CommandContext.cs" />
-    <Compile Include="Command\CommandFactory.cs" />
-    <Compile Include="Command\PrintToScreent.cs" />
-    <Compile Include="Command\RemoveVehicle.cs" />
+    <Compile Include="Commands\CommandFactory.cs" />
+    <Compile Include="Commands\GetLatestVehicleEntry.cs" />
+    <Compile Include="Commands\PrintToScreent.cs" />
+    <Compile Include="Commands\RemoveVehicle.cs" />
+    <Compile Include="Commands\LoadVehicles.cs" />
+    <Compile Include="Commands\SaveVehicles.cs" />
+    <Compile Include="Commands\SearchVehicles.cs" />
+    <Compile Include="Commands\SortVehicles.cs" />
+    <Compile Include="Commands\Void.cs" />
+    <Compile Include="CommandProcessor.cs" />
     <Compile Include="Vehicles\Repository.cs" />
-    <Compile Include="CommandTypes.cs" />
+    <Compile Include="Command.cs" />
     <Compile Include="Util.cs" />
     <Compile Include="Vehicle.cs" />
     <Compile Include="Program.cs" />

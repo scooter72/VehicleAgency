@@ -1,4 +1,5 @@
-﻿namespace VehicleAgency.Command
+﻿namespace VehicleAgency.Commands
+
 {
     public abstract class CommandBase<R>
     {

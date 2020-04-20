@@ -1,9 +1,9 @@
 ﻿namespace VehicleAgency
 {
-    public enum CommandTypes
+    public enum Command
     {
         Exit,
-        InputVehicleData,
+        AddVehicle,
         RemoveVehicle,
         PrintVehiclesToScreen,
         SaveVehiclesToFile,

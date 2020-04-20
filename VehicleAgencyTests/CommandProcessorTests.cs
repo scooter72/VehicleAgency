@@ -23,9 +23,10 @@ namespace VehicleAgency.Tests
             {
                 VehiclesManager = repository,
                 VehicleInfoInput = () => expectedVehicle,
-                Selection = CommandTypes.InputVehicleData
+                Command = Command.AddVehicle
             };
-            Program.ProcessUserSelection(context);
+            CommandProcesseor commandProcesseor = new CommandProcesseor();
+            commandProcesseor.ProcessUserSelection(context);
             CollectionAssert.Contains(repository.Vehicles, expectedVehicle);
         }
 
@@ -46,9 +47,10 @@ namespace VehicleAgency.Tests
             {
                 VehiclesManager = repository,
                 LicensePlateInput = () => vehicle.LicensePlate,
-                Selection = CommandTypes.RemoveVehicle
+                Command = Command.RemoveVehicle
             };
-            Program.ProcessUserSelection(context);
+            CommandProcesseor commandProcesseor = new CommandProcesseor();
+            commandProcesseor.ProcessUserSelection(context);
             CollectionAssert.DoesNotContain(repository.Vehicles, vehicle);
         }
 
@@ -71,10 +73,11 @@ namespace VehicleAgency.Tests
             {
                 VehiclesManager = repository,
                 LicensePlateInput = () => vehicle.LicensePlate,
-                Selection = CommandTypes.SearchForVehicles,
+                Command = Command.SearchForVehicles,
                 SearchCriteriaInput = () => (int)VehiclesSearchCriteria.LicensePlate
             };
-            var result = Program.ProcessUserSelection(context);
+            CommandProcesseor commandProcesseor = new CommandProcesseor();
+            var result = commandProcesseor.ProcessUserSelection(context);
             Assert.IsTrue(result is Array, "an array was expected as a result");
             Assert.IsTrue(((Array)result).Length == 1, "an array with one item was expected");
             Assert.AreEqual(vehicle, ((Array)result).GetValue(0));
@@ -107,9 +110,10 @@ namespace VehicleAgency.Tests
             {
                 VehiclesManager = repository,
                 LicensePlateInput = () => vehicle.LicensePlate,
-                Selection = CommandTypes.GetLatetstVehicleEntry
+                Command = Command.GetLatetstVehicleEntry
             };
-            var actual = Program.ProcessUserSelection(context);
+            CommandProcesseor commandProcesseor = new CommandProcesseor();
+            var actual = commandProcesseor.ProcessUserSelection(context);
             Assert.AreEqual(vehicle2, actual);
         }
 
@@ -130,14 +134,15 @@ namespace VehicleAgency.Tests
             {
                 VehiclesManager = repository,
                 DataFilePath = tempFile,
-                Selection = CommandTypes.SaveVehiclesToFile
+                Command = Command.SaveVehiclesToFile
             };
-            Program.ProcessUserSelection(context);
+            CommandProcesseor commandProcesseor = new CommandProcesseor();
+            commandProcesseor.ProcessUserSelection(context);
 
             VehiclesManager repository2 = new VehiclesManager();
             context.VehiclesManager = repository2;
-            context.Selection = CommandTypes.LoadVehiclesFromFile;
-            Program.ProcessUserSelection(context);
+            context.Command = Command.LoadVehiclesFromFile;
+            commandProcesseor.ProcessUserSelection(context);
             Vehicle actual = null;
 
             foreach (var vehicle in repository2.Vehicles)
@@ -160,7 +165,7 @@ namespace VehicleAgency.Tests
             var context = new CommandContext()
             {
                 VehiclesManager = repository,
-                Selection = CommandTypes.GetLatetstVehicleEntry
+                Command = Command.GetLatetstVehicleEntry
             };
 
             var vehicles = new Vehicle[] {
@@ -188,7 +193,9 @@ namespace VehicleAgency.Tests
                 }
             };
             repository.AddVehicles(vehicles);
-            object actual = Program.ProcessUserSelection(context);
+            CommandProcesseor commandProcesseor = new CommandProcesseor();
+            object actual = commandProcesseor.ProcessUserSelection(context);
+
             Assert.AreEqual(vehicles[2], actual);
         }
 
@@ -200,7 +207,7 @@ namespace VehicleAgency.Tests
             var context = new CommandContext()
             {
                 VehiclesManager = repository,
-                Selection = CommandTypes.SortVehicles,
+                Command = Command.SortVehicles,
                 SortCriteriaInput = () => (int)VehiclesSortCriteria.Manufacturer
             };
 
@@ -229,7 +236,9 @@ namespace VehicleAgency.Tests
                 }
             };
             repository.AddVehicles(vehicles);
-            object result = Program.ProcessUserSelection(context);
+            CommandProcesseor commandProcesseor = new CommandProcesseor();
+            object result = commandProcesseor.ProcessUserSelection(context);
+
             Assert.IsTrue(result is Array, "an array was expected as a result");
             Assert.IsTrue(((Array)result).Length == 3, "an array with three items was expected");
             Assert.AreEqual(vehicles[1], ((Array)result).GetValue(0));
@@ -245,7 +254,7 @@ namespace VehicleAgency.Tests
             var context = new CommandContext()
             {
                 VehiclesManager = repository,
-                Selection = CommandTypes.SortVehicles,
+                Command = Command.SortVehicles,
                 SortCriteriaInput = () => (int)VehiclesSortCriteria.ProductionYear
             };
 
@@ -274,7 +283,9 @@ namespace VehicleAgency.Tests
                 }
             };
             repository.AddVehicles(vehicles);
-            object result = Program.ProcessUserSelection(context);
+            CommandProcesseor commandProcesseor = new CommandProcesseor();
+            object result = commandProcesseor.ProcessUserSelection(context);
+
             Assert.IsTrue(result is Array, "an array was expected as a result");
             Assert.IsTrue(((Array)result).Length == 3, "an array with three items was expected");
             Assert.AreEqual(vehicles[1], ((Array)result).GetValue(0));
@@ -289,7 +300,7 @@ namespace VehicleAgency.Tests
             var context = new CommandContext()
             {
                 VehiclesManager = repository,
-                Selection = CommandTypes.SortVehicles,
+                Command = Command.SortVehicles,
                 SortCriteriaInput = () => (int)VehiclesSortCriteria.ManufacturerAndProductionYear
             };
 
@@ -325,7 +336,9 @@ namespace VehicleAgency.Tests
                 }
             };
             repository.AddVehicles(vehicles);
-            object result = Program.ProcessUserSelection(context);
+            CommandProcesseor commandProcesseor = new CommandProcesseor();
+            object result = commandProcesseor.ProcessUserSelection(context);
+
             Assert.IsTrue(result is Array, "an array was expected as a result");
             Assert.IsTrue(((Array)result).Length == 4, "an array with four items was expected");
             Assert.AreEqual(vehicles[2], ((Array)result).GetValue(0));

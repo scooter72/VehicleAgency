@@ -1,14 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace VehicleAgency.Command
+namespace VehicleAgency.Commands
 {
-    internal sealed class RemoveVehicle : CommandBase<object>
+    internal sealed class RemoveVehicle : CommandBase<Void>
     {
-        public override object Execute(CommandContext context)
+        public override Void Execute(CommandContext context)
         {
             var licensePlate = context.LicensePlateInput.Invoke();
             var vehicleToRemove = context.VehiclesManager.FindVehicleByLicecnsePlate(licensePlate);

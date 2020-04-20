@@ -9,7 +9,7 @@ namespace VehicleAgency.Vehicles
     public class Truck : Vehicle
     {
 
-        public int OverallWeight { get; set; }
+        public int TotalWeight { get; set; }
 
         public Truck() : base(VehicleType.Truck)
         {
@@ -17,13 +17,13 @@ namespace VehicleAgency.Vehicles
 
         protected override void SetAdditionalInfo(string[] tokens)
         {
-            int.TryParse(tokens[tokens.Length - 1], out var overallWeight);
-            OverallWeight = overallWeight;
+            int.TryParse(tokens[tokens.Length - 1], out var totalWeight);
+            TotalWeight = totalWeight;
         }
 
         protected override string GetAdditionalInfo()
         {
-            return $"{OverallWeight}";
+            return $"{TotalWeight}";
         }
     }
 }
