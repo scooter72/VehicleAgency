@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.IO;
+using System.Linq;
 using VehicleAgency.Vehicles;
 
 namespace VehicleAgency.Tests
@@ -143,18 +144,7 @@ namespace VehicleAgency.Tests
             context.VehiclesManager = repository2;
             context.Command = Command.LoadVehiclesFromFile;
             commandProcesseor.ProcessUserSelection(context);
-            Vehicle actual = null;
-
-            foreach (var vehicle in repository2.Vehicles)
-            {
-                if (vehicle.CompareTo(expectedVehicle) == 0)
-                {
-                    actual = vehicle;
-                    break;
-                }
-            }
-
-            Assert.IsNotNull(actual, "Vehicle not found");
+            Assert.IsNotNull(repository2.Vehicles.FirstOrDefault(i=> i.CompareTo(expectedVehicle) == 0), "Vehicle not found");
         }
 
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Text;
+using System.Linq;
 
 namespace VehicleAgency
 {
@@ -18,11 +19,7 @@ namespace VehicleAgency
             string[] optionsNames = Enum.GetNames(enumType);
             Console.WriteLine("--");
             Console.WriteLine(label);
-            for (int i = 0; i < optionsNames.Length; i++)
-            {
-                Console.WriteLine($"{i} - {optionsNames[i]}");
-            }
-
+            Array.ForEach(optionsNames, i => Console.WriteLine($"{i} - {i}"));
             Console.WriteLine("Hit Backspace key to go back to previous menu.");
         }
 

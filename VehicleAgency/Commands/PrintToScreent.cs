@@ -9,10 +9,7 @@ namespace VehicleAgency.Commands
             Console.WriteLine();
             Console.WriteLine($"Printing {context.VehiclesManager.Vehicles.Length} vehicles in repository");
             Console.WriteLine("-------------------------------------------------");
-            foreach (var item in context.VehiclesManager.Vehicles)
-            {
-                Console.WriteLine(item);
-            }
+            Array.ForEach(context.VehiclesManager.Vehicles, i => Console.WriteLine(i));
             Console.WriteLine("-------------------------------------------------");
             Console.WriteLine();
             return null;

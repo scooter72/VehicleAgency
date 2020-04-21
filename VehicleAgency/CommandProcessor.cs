@@ -48,12 +48,9 @@ namespace VehicleAgency
                     {
                         Console.WriteLine(result);
                     }
-                    else if (result is Array) 
+                    else if (result is Vehicle[]) 
                     {
-                        foreach (var item in (Array)result)
-                        {
-                            Console.WriteLine(item);
-                        }
+                        Array.ForEach((Vehicle[])result, i => Console.WriteLine(i));
                     }
                 }
                 catch (Exception ex)
@@ -69,10 +66,7 @@ namespace VehicleAgency
         {
             Console.WriteLine("--");
             Console.WriteLine("Enter one of the options below:");
-            for (int i = 0; i < Enum.GetNames(typeof(Command)).Length; i++)
-            {
-                Console.WriteLine(GetUserSelectionOptionsLabels((Command)i));
-            }
+            Array.ForEach(Enum.GetNames(typeof(Command)), i => Console.WriteLine(GetUserSelectionOptionsLabels((Command)Enum.Parse(typeof(Command), i))));
         }
 
         private String GetUserSelectionOptionsLabels(Command selection)

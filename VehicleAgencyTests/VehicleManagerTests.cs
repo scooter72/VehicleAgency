@@ -63,18 +63,7 @@ namespace VehicleAgency.Tests
             VehiclesManager repository2 = new VehiclesManager();
             repository2.LoadVehicles(tempFile);
 
-            Vehicle actual = null;
-
-            foreach (var vehicle in repository2.Vehicles)
-            {
-                if (vehicle.CompareTo(expectedVehicle) == 0) 
-                {
-                    actual = vehicle;
-                    break;
-                }
-            }
-
-            Assert.IsNotNull(actual, "Vehicle not found");
+            Assert.IsNotNull(repository2.Vehicles.FirstOrDefault(i => i.CompareTo(expectedVehicle) == 0), "Vehicle not found");
         }
 
         [TestMethod()]

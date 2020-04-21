@@ -12,23 +12,15 @@ namespace VehicleAgency.Vehicles
         internal Vehicle[] Vehicles { get => vehicles.ToArray(); }
 
         internal void Load(string path)
-        {                
-            foreach (var line in File.ReadAllLines(path))
-            {
-                vehicles.Add(Vehicle.Parse(line));
-            }
+        {
+            Array.ForEach(File.ReadAllLines(path), line => vehicles.Add(Vehicle.Parse(line)));
             Console.WriteLine($"{vehicles.Count} vehicle loaded from file {path}");
         }
 
         internal void Save(string path)
         {
             List<string> lines = new List<string>(vehicles.Count);
-
-            foreach (var vehicle in vehicles)
-            {
-
-                lines.Add(vehicle.ToString());
-            }
+            vehicles.ForEach(vehicle => lines.Add(vehicle.ToString()));
             File.WriteAllLines(path, lines);
             Console.WriteLine($"{vehicles.Count} vehicle saved to file {path}");
         }
@@ -41,51 +33,22 @@ namespace VehicleAgency.Vehicles
 
         internal void AddVehicles(Vehicle[] vehicles)
         {
-            foreach (var vehicle in vehicles)
-            {
-                AddVehicle(vehicle);
-            }
+            Array.ForEach(vehicles, i => AddVehicle(i));
         }
 
         internal Vehicle[] FindVehiclesByProductionYear(int year)
         {
-            List<Vehicle> result = new List<Vehicle>();
-            foreach (var vehicle in vehicles)
-            {
-                if (vehicle.ProductionYear == year)
-                {
-                    result.Add(vehicle);
-                }
-            }
-
-            return result.ToArray();
+            return vehicles.Where(i => i.ProductionYear == year).ToArray();
         }
 
         internal Vehicle FindVehicleByLicecnsePlate(string licensePlate)
         {
-            foreach (var vehicle in vehicles)
-            {
-                if (vehicle.LicensePlate.Equals(licensePlate))
-                {
-                    return vehicle;
-                }
-            }
-
-            return null;
+            return vehicles.FirstOrDefault(i => i.LicensePlate == licensePlate);
         }
 
         internal Vehicle[] FindVehiclesByManufacturer(string manufacturer)
         {
-            List<Vehicle> result = new List<Vehicle>();
-            foreach (var vehicle in vehicles)
-            {
-                if (vehicle.Manufacturer.Equals(manufacturer))
-                {
-                    result.Add(vehicle);
-                }
-            }
-
-            return result.ToArray();
+            return vehicles.Where(i => i.Manufacturer == manufacturer).ToArray();
         }
 
 
@@ -96,13 +59,7 @@ namespace VehicleAgency.Vehicles
 
         internal void RemoveVehicle(string licensePlate)
         {
-            var vehicle = FindVehicleByLicecnsePlate(licensePlate);
-
-            if (vehicle != null)
-            {
-                vehicles.Remove(vehicle);
-                Console.WriteLine($"Vehicle {vehicle} removed");
-            }
+            vehicles.RemoveAll(i => i.LicensePlate == licensePlate);
         }
 
 
