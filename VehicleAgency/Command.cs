@@ -10,6 +10,6 @@
         LoadVehiclesFromFile,
         GetLatetstVehicleEntry,
         SortVehicles,
-        SearchForVehicles,
+        SearchVehicles,
     }
 }

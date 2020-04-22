@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace VehicleAgency.Vehicles
 {
-    internal class Repository
+    internal class VehicleInventory
     {
         private readonly List<Vehicle> vehicles = new List<Vehicle>();
 
@@ -48,7 +48,7 @@ namespace VehicleAgency.Vehicles
 
         internal Vehicle[] FindVehiclesByManufacturer(string manufacturer)
         {
-            return vehicles.Where(i => i.Manufacturer == manufacturer).ToArray();
+            return vehicles.Where(i => i.Make == manufacturer).ToArray();
         }
 
 
@@ -66,7 +66,7 @@ namespace VehicleAgency.Vehicles
         internal Vehicle[] SortByManufacturer()
         {
             List<Vehicle> copy = new List<Vehicle>(vehicles);
-            copy.Sort((x, y) => x.Manufacturer.CompareTo(y.Manufacturer));
+            copy.Sort((x, y) => x.Make.CompareTo(y.Make));
             return copy.ToArray();
         }
 
@@ -82,7 +82,7 @@ namespace VehicleAgency.Vehicles
             List<Vehicle> copy = new List<Vehicle>(vehicles);
             copy.Sort((a, b) =>
             {
-                var firstCompare = a.Manufacturer.CompareTo(b.Manufacturer);
+                var firstCompare = a.Make.CompareTo(b.Make);
                 return firstCompare != 0 ? firstCompare : a.ProductionYear.CompareTo(b.ProductionYear);
             });
 

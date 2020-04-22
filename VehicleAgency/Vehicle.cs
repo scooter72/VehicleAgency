@@ -16,7 +16,7 @@ namespace VehicleAgency
         
         public string Model { get; set; }
 
-        public string Manufacturer { get; set; }
+        public string Make { get; set; }
 
         public string LicensePlate { get; set; }
         public VehicleType VehicleType { get; set; }
@@ -42,7 +42,7 @@ namespace VehicleAgency
 
             Vehicle vehicle = CreateVehicle(vehicleType);
 
-            vehicle.Manufacturer = manufacturer;
+            vehicle.Make = manufacturer;
             vehicle.Model = model;
             vehicle.ProductionYear = productionYear;
             vehicle.LicensePlate = licensePlate;
@@ -67,7 +67,7 @@ namespace VehicleAgency
 
         public override string ToString()
         {
-            return $"{VehicleType},{Manufacturer},{Model},{ProductionYear},{LicensePlate},{GetAdditionalInfo()}" ;
+            return $"{VehicleType},{Make},{Model},{ProductionYear},{LicensePlate},{GetAdditionalInfo()}" ;
         }
 
         protected virtual string GetAdditionalInfo()
@@ -82,7 +82,7 @@ namespace VehicleAgency
         public int CompareTo(Vehicle other)
         {
             return (VehicleType == other.VehicleType
-                && Manufacturer.CompareTo(other.Manufacturer) == 0
+                && Make.CompareTo(other.Make) == 0
                 && Model.CompareTo(other.Model) == 0
                 && ProductionYear == other.ProductionYear
                 && LicensePlate.CompareTo(other.LicensePlate) == 0) ?  0 : -1; 

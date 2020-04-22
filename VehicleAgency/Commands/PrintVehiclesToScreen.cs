@@ -2,7 +2,7 @@
 
 namespace VehicleAgency.Commands
 {
-    internal sealed class PrintToScreent : CommandBase<Void>
+    internal sealed class PrintVehiclesToScreen : CommandBase<Void>
     {
         public override Void Execute(CommandContext context)
         {

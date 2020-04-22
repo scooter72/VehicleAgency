@@ -2,7 +2,7 @@
 {
     public enum VehiclesSortCriteria
     {
-        Manufacturer,
+        Make,
         ProductionYear,
         ManufacturerAndProductionYear,
     }

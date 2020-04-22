@@ -9,13 +9,13 @@ namespace VehicleAgency
     {
         public void ProcessCommands()
         {
-            string dataFilePath = @"c:\temp\vehicles.txt";
+            string dataFilePath = @"{0}\vehicles.txt";
             VehiclesManager repository = new VehiclesManager();
             int selection;
 
             if (!(File.Exists(dataFilePath)))
             {
-                File.CreateText(dataFilePath);
+                File.CreateText(string.Format(dataFilePath, Path.GetTempPath()));
             }
 
             var context = new CommandContext()
@@ -88,7 +88,7 @@ namespace VehicleAgency
                     return $"{label} Get Latest Vehicle Entry";
                 case Command.SortVehicles:
                     return $"{label} Sort Vehicles";
-                case Command.SearchForVehicles:
+                case Command.SearchVehicles:
                     return $"{label} Search Vehicles";
                 case Command.Exit:
                     return $"{label} Exit";
@@ -129,7 +129,7 @@ namespace VehicleAgency
             Console.WriteLine("--");
             Vehicle vehicle = Vehicle.CreateVehicle(vehicleType);
 
-            vehicle.Manufacturer = GetInput("manufacturer");
+            vehicle.Make = GetInput("manufacturer");
             vehicle.Model = GetInput("vehicle model");
             vehicle.ProductionYear = GetNumericInput("production year", 1886, DateTime.Now.Year);
             vehicle.LicensePlate = GetInput("license plate");

@@ -15,7 +15,7 @@ namespace VehicleAgency.Tests
             VehiclesManager repository = new VehiclesManager();
             var expectedVehicle = new Car
             {
-                Manufacturer = "Ford",
+                Make = "Ford",
                 Model = "Mustang",
                 ProductionYear = 2000,
                 LicensePlate = "NY2000",
@@ -37,7 +37,7 @@ namespace VehicleAgency.Tests
             VehiclesManager repository = new VehiclesManager();
             var vehicle = new Car
             {
-                Manufacturer = "Ford",
+                Make = "Ford",
                 Model = "Mustang",
                 ProductionYear = 2000,
                 LicensePlate = "NY2000",
@@ -63,7 +63,7 @@ namespace VehicleAgency.Tests
             VehiclesManager repository = new VehiclesManager();
             var vehicle = new Car
             {
-                Manufacturer = "Ford",
+                Make = "Ford",
                 Model = "Mustang",
                 ProductionYear = 2000,
                 LicensePlate = "NY2000",
@@ -74,7 +74,7 @@ namespace VehicleAgency.Tests
             {
                 VehiclesManager = repository,
                 LicensePlateInput = () => vehicle.LicensePlate,
-                Command = Command.SearchForVehicles,
+                Command = Command.SearchVehicles,
                 SearchCriteriaInput = () => (int)VehiclesSearchCriteria.LicensePlate
             };
             CommandProcesseor commandProcesseor = new CommandProcesseor();
@@ -90,7 +90,7 @@ namespace VehicleAgency.Tests
             VehiclesManager repository = new VehiclesManager();
             var vehicle = new Car
             {
-                Manufacturer = "Ford",
+                Make = "Ford",
                 Model = "Mustang",
                 ProductionYear = 2000,
                 LicensePlate = "NY2000",
@@ -98,7 +98,7 @@ namespace VehicleAgency.Tests
 
             var vehicle2 = new Car
             {
-                Manufacturer = "Ford",
+                Make = "Ford",
                 Model = "Mustang",
                 ProductionYear = 2000,
                 LicensePlate = "NY2002",
@@ -124,7 +124,7 @@ namespace VehicleAgency.Tests
             VehiclesManager repository = new VehiclesManager();
             var expectedVehicle = new Car
             {
-                Manufacturer = "Ford",
+                Make = "Ford",
                 Model = "Mustang",
                 ProductionYear = 2000,
                 LicensePlate = "NY2000",
@@ -161,14 +161,14 @@ namespace VehicleAgency.Tests
             var vehicles = new Vehicle[] {
                 new Car
                 {
-                    Manufacturer = "C",
+                    Make = "C",
                     Model = "Mustang",
                     ProductionYear = 2000,
                     LicensePlate = "NY2000C",
                 },
                 new Car
                 {
-                    Manufacturer = "B",
+                    Make = "B",
                     Model = "Corolla",
                     ProductionYear = 2000,
                     LicensePlate = "NY2000B",
@@ -176,7 +176,7 @@ namespace VehicleAgency.Tests
 
                 new Car
                 {
-                    Manufacturer = "A",
+                    Make = "A",
                     Model = "Mustang",
                     ProductionYear = 2000,
                     LicensePlate = "NY2000A",
@@ -198,20 +198,20 @@ namespace VehicleAgency.Tests
             {
                 VehiclesManager = repository,
                 Command = Command.SortVehicles,
-                SortCriteriaInput = () => (int)VehiclesSortCriteria.Manufacturer
+                SortCriteriaInput = () => (int)VehiclesSortCriteria.Make
             };
 
             var vehicles = new Vehicle[] {
                 new Car
                 {
-                    Manufacturer = "C",
+                    Make = "C",
                     Model = "Mustang",
                     ProductionYear = 2000,
                     LicensePlate = "NY2000C",
                 },
                 new Car
                 {
-                    Manufacturer = "A",
+                    Make = "A",
                     Model = "Corolla",
                     ProductionYear = 2000,
                     LicensePlate = "NY2000B",
@@ -219,7 +219,7 @@ namespace VehicleAgency.Tests
 
                 new Car
                 {
-                    Manufacturer = "B",
+                    Make = "B",
                     Model = "Mustang",
                     ProductionYear = 2000,
                     LicensePlate = "NY2000A",
@@ -251,14 +251,14 @@ namespace VehicleAgency.Tests
             var vehicles = new Vehicle[] {
                 new Car
                 {
-                    Manufacturer = "C",
+                    Make = "C",
                     Model = "Mustang",
                     ProductionYear = 2007,
                     LicensePlate = "NY2000C",
                 },
                 new Car
                 {
-                    Manufacturer = "A",
+                    Make = "A",
                     Model = "Corolla",
                     ProductionYear = 2000,
                     LicensePlate = "NY2000B",
@@ -266,7 +266,7 @@ namespace VehicleAgency.Tests
 
                 new Car
                 {
-                    Manufacturer = "B",
+                    Make = "B",
                     Model = "Mustang",
                     ProductionYear = 2003,
                     LicensePlate = "NY2000A",
@@ -297,14 +297,14 @@ namespace VehicleAgency.Tests
             var vehicles = new Vehicle[] {
                 new Car
                 {
-                    Manufacturer = "C",
+                    Make = "C",
                     Model = "Mustang",
                     ProductionYear = 2007,
                     LicensePlate = "NY2000C",
                 },
                 new Car
                 {
-                    Manufacturer = "C",
+                    Make = "C",
                     Model = "Corolla",
                     ProductionYear = 2000,
                     LicensePlate = "NY2000B",
@@ -312,14 +312,14 @@ namespace VehicleAgency.Tests
 
                 new Car
                 {
-                    Manufacturer = "B",
+                    Make = "B",
                     Model = "Mustang",
                     ProductionYear = 2003,
                     LicensePlate = "NY2000A",
                 },
                 new Car
                 {
-                    Manufacturer = "B",
+                    Make = "B",
                     Model = "Mustang",
                     ProductionYear = 2006,
                     LicensePlate = "NY2000A",

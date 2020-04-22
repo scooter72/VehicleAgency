@@ -1,5 +1,4 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using VehicleAgency.Vehicles;
@@ -15,7 +14,7 @@ namespace VehicleAgency.Tests
             VehiclesManager repository = new VehiclesManager();
             var expectedVehicle = new Car 
             { 
-                Manufacturer = "Ford",
+                Make = "Ford",
                 Model = "Mustang",
                 ProductionYear = 2000,
                 LicensePlate = "NY2000",
@@ -32,7 +31,7 @@ namespace VehicleAgency.Tests
             VehiclesManager repository = new VehiclesManager();
             var expectedVehicle = new Car
             {
-                Manufacturer = "Ford",
+                Make = "Ford",
                 Model = "Mustang",
                 ProductionYear = 2000,
                 LicensePlate = "NY2000",
@@ -50,7 +49,7 @@ namespace VehicleAgency.Tests
             VehiclesManager repository = new VehiclesManager();
             var expectedVehicle = new Car
             {
-                Manufacturer = "Ford",
+                Make = "Ford",
                 Model = "Mustang",
                 ProductionYear = 2000,
                 LicensePlate = "NY2000",
@@ -72,7 +71,7 @@ namespace VehicleAgency.Tests
             VehiclesManager repository = new VehiclesManager();
             var expectedVehicle = new Car
             {
-                Manufacturer = "Ford",
+                Make = "Ford",
                 Model = "Mustang",
                 ProductionYear = 2000,
                 LicensePlate = "NY2000",
@@ -91,7 +90,7 @@ namespace VehicleAgency.Tests
             VehiclesManager repository = new VehiclesManager();
             var vehicle1 = new Car
             {
-                Manufacturer = "Ford",
+                Make = "Ford",
                 Model = "Mustang",
                 ProductionYear = 2000,
                 LicensePlate = "NY2000",
@@ -99,7 +98,7 @@ namespace VehicleAgency.Tests
 
             var vehicle2 = new Car
             {
-                Manufacturer = "Ford",
+                Make = "Ford",
                 Model = "Mustang",
                 ProductionYear = 2001,
                 LicensePlate = "NY2001",
@@ -116,7 +115,7 @@ namespace VehicleAgency.Tests
             VehiclesManager repository = new VehiclesManager();
             var vehicle1 = new Car
             {
-                Manufacturer = "Ford",
+                Make = "Ford",
                 Model = "Mustang",
                 ProductionYear = 2000,
                 LicensePlate = "NY2000",
@@ -124,7 +123,7 @@ namespace VehicleAgency.Tests
 
             var vehicle2 = new Car
             {
-                Manufacturer = "Toyota",
+                Make = "Toyota",
                 Model = "Corolla",
                 ProductionYear = 2000,
                 LicensePlate = "NY2001",
@@ -142,14 +141,14 @@ namespace VehicleAgency.Tests
             var vehicles = new Vehicle[] {
                 new Car
                 {
-                    Manufacturer = "C",
+                    Make = "C",
                     Model = "Mustang",
                     ProductionYear = 2000,
                     LicensePlate = "NY2000C",
                 },
                 new Car
                 {
-                    Manufacturer = "B",
+                    Make = "B",
                     Model = "Corolla",
                     ProductionYear = 2000,
                     LicensePlate = "NY2000B",
@@ -157,7 +156,7 @@ namespace VehicleAgency.Tests
 
                 new Car
                 {
-                    Manufacturer = "A",
+                    Make = "A",
                     Model = "Mustang",
                     ProductionYear = 2000,
                     LicensePlate = "NY2000A",
@@ -167,13 +166,13 @@ namespace VehicleAgency.Tests
             VehiclesManager repository = new VehiclesManager();
             repository.AddVehicles(vehicles);
             var vehicles2 = repository.Vehicles;
-            Assert.IsTrue(vehicles2[0].Manufacturer.Equals("C"));
-            Assert.IsTrue(vehicles2[1].Manufacturer.Equals("B"));
-            Assert.IsTrue(vehicles2[2].Manufacturer.Equals("A"));
+            Assert.IsTrue(vehicles2[0].Make.Equals("C"));
+            Assert.IsTrue(vehicles2[1].Make.Equals("B"));
+            Assert.IsTrue(vehicles2[2].Make.Equals("A"));
             var sorted = repository.SortByManufacturer();
-            Assert.IsTrue(sorted[0].Manufacturer.Equals("A"));
-            Assert.IsTrue(sorted[1].Manufacturer.Equals("B"));
-            Assert.IsTrue(sorted[2].Manufacturer.Equals("C"));
+            Assert.IsTrue(sorted[0].Make.Equals("A"));
+            Assert.IsTrue(sorted[1].Make.Equals("B"));
+            Assert.IsTrue(sorted[2].Make.Equals("C"));
 
         }
 
@@ -183,14 +182,14 @@ namespace VehicleAgency.Tests
             var vehicles = new Vehicle[] {
                 new Car
                 {
-                    Manufacturer = "Ford",
+                    Make = "Ford",
                     Model = "Mustang",
                     ProductionYear = 2003,
                     LicensePlate = "NY2003",
                 },
                 new Car
                 {
-                    Manufacturer = "Ford",
+                    Make = "Ford",
                     Model = "Corolla",
                     ProductionYear = 2002,
                     LicensePlate = "NY2002",
@@ -198,7 +197,7 @@ namespace VehicleAgency.Tests
 
                 new Car
                 {
-                    Manufacturer = "Ford",
+                    Make = "Ford",
                     Model = "Mustang",
                     ProductionYear = 2001,
                     LicensePlate = "NY2001",
@@ -223,73 +222,70 @@ namespace VehicleAgency.Tests
             var vehicles = new Vehicle[] {
                 new Car
                 {
-                    Manufacturer = "D",
+                    Make = "D",
                     Model = "Corolla",
                     ProductionYear = 2010,
                     LicensePlate = "NY2010D",
                 },
                 new Car
                 {
-                    Manufacturer = "D",
+                    Make = "D",
                     Model = "Corolla",
                     ProductionYear = 2002,
                     LicensePlate = "NY2002D",
                 },
                 new Car
                 {
-                    Manufacturer = "D",
+                    Make = "D",
                     Model = "Corolla",
                     ProductionYear = 2001,
                     LicensePlate = "NY2001D",
                 },
                 new Car
                 {
-                    Manufacturer = "A",
+                    Make = "A",
                     Model = "Mustang",
                     ProductionYear = 2005,
                     LicensePlate = "NY2005A",
                 },
                 new Car
                 {
-                    Manufacturer = "A",
+                    Make = "A",
                     Model = "Mustang",
                     ProductionYear = 2002,
                     LicensePlate = "NY2002A",
                 },
                 new Car
                 {
-                    Manufacturer = "C",
+                    Make = "C",
                     Model = "Mustang",
                     ProductionYear = 2005,
                     LicensePlate = "NY2010C",
                 },
                 new Car
                 {
-                    Manufacturer = "C",
+                    Make = "C",
                     Model = "Mustang",
                     ProductionYear = 2000,
                     LicensePlate = "NY2000C",
                 },
                 new Car
                 {
-                    Manufacturer = "C",
+                    Make = "C",
                     Model = "Mustang",
                     ProductionYear = 2010,
                     LicensePlate = "NY2010C",
                 }
             };
 
-            string[] lines = vehicles.Select(v => v.ToString()).ToArray();
-            File.WriteAllLines(@"c:\temp\vehicles.txt", lines );
-
             VehiclesManager repository = new VehiclesManager();
             repository.AddVehicles(vehicles);
             var vehicles2 = repository.Vehicles;
             var sorted = repository.SortByManufacturerAndProductionYear();
-            Assert.IsTrue(sorted[0].Manufacturer.Equals("A") && sorted[1].Manufacturer.Equals("A") && sorted[0].ProductionYear < sorted[1].ProductionYear);
-            Assert.IsTrue(sorted[2].Manufacturer.Equals("C") && sorted[3].Manufacturer.Equals("C") && sorted[3].Manufacturer.Equals("C") 
+            Assert.IsTrue(sorted[0].Make.Equals("A") && sorted[1].Make.Equals("A") && sorted[0].ProductionYear < sorted[1].ProductionYear);
+            Assert.IsTrue(sorted[2].Make.Equals("C") && sorted[3].Make.Equals("C") && sorted[3].Make.Equals("C") 
                 && sorted[2].ProductionYear < sorted[3].ProductionYear && sorted[3].ProductionYear < sorted[4].ProductionYear);
-            Assert.IsTrue(sorted[5].Manufacturer.Equals("D") && sorted[6].Manufacturer.Equals("D") && sorted[7].Manufacturer.Equals("D")
+            Assert.IsTrue(sorted[5].Make.Equals("D") && sorted[6].Make.Equals("D") && sorted[7].Make.Equals("D")
                 && sorted[5].ProductionYear < sorted[6].ProductionYear && sorted[6].ProductionYear < sorted[7].ProductionYear);
         }
 
@@ -302,14 +298,14 @@ namespace VehicleAgency.Tests
             var vehicles = new Vehicle[] {
                 new Car
                 {
-                    Manufacturer = "C",
+                    Make = "C",
                     Model = "Mustang",
                     ProductionYear = 2000,
                     LicensePlate = "NY2000C",
                 },
                 new Car
                 {
-                    Manufacturer = "B",
+                    Make = "B",
                     Model = "Corolla",
                     ProductionYear = 2000,
                     LicensePlate = "NY2000B",
@@ -317,7 +313,7 @@ namespace VehicleAgency.Tests
 
                 new Car
                 {
-                    Manufacturer = "A",
+                    Make = "A",
                     Model = "Mustang",
                     ProductionYear = 2000,
                     LicensePlate = "NY2000A",

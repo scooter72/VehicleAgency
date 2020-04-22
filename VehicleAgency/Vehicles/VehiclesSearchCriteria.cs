@@ -4,6 +4,6 @@
     {
         LicensePlate,
         ProductionYear,
-        Manufacturer,
+        Make,
     }
 }

@@ -4,7 +4,7 @@ namespace VehicleAgency
 {
     public class VehiclesManager
     {
-        private readonly Repository repository = new Repository();
+        private readonly VehicleInventory repository = new VehicleInventory();
 
         public Vehicle[] Vehicles { get => repository.Vehicles;}
 

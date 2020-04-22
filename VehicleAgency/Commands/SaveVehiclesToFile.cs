@@ -1,6 +1,6 @@
 ﻿namespace VehicleAgency.Commands
 {
-    internal sealed class SaveVehicles : CommandBase<Void>
+    internal sealed class SaveVehiclesToFile : CommandBase<Void>
     {
         public override Void Execute(CommandContext context)
         {

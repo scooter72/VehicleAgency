@@ -1,39 +1,32 @@
-﻿namespace VehicleAgency.Commands
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace VehicleAgency.Commands
 {
     public sealed class CommandFactory
     {
+        private static readonly List<ICommand> commands = new List<ICommand>(); 
 
         public static T ExecuteCommand<T>(Command type, CommandContext context)
         {
-            switch (type)
+            if (commands.Count == 0)
             {
-                case Command.Exit:
-                    break;
-                case Command.AddVehicle:
-                    new AddVehicle().Execute(context);
-                    break;
-                case Command.RemoveVehicle:
-                    new RemoveVehicle().Execute(context);
-                    break;
-                case Command.PrintVehiclesToScreen:
-                    new PrintToScreent().Execute(context);
-                    break;
-                case Command.SaveVehiclesToFile:
-                    new SaveVehicles().Execute(context);
-                    break;
-                case Command.LoadVehiclesFromFile:
-                    new LoadVehicles().Execute(context);
-                    break;
-                case Command.GetLatetstVehicleEntry:
-                    return (T)(object)new GetLatestVehicleEntry().Execute(context);
-                case Command.SortVehicles:
-                    return (T)(object)new SortVehicles().Execute(context);
-                case Command.SearchForVehicles:
-                    return (T)(object)new SearchVehicles().Execute(context);
-                default:
-                    break;
+                LoadCommands();
             }
-            return default;
+            return (T)(object)commands.First(c => c.GetCommand() == type).ExecuteCommand(context);
+        }
+
+        private static void LoadCommands()
+        {
+            commands.Add(new AddVehicle());
+            commands.Add(new RemoveVehicle());
+            commands.Add(new PrintVehiclesToScreen());
+            commands.Add(new SaveVehiclesToFile());
+            commands.Add(new GetLatestVehicleEntry());
+            commands.Add(new SortVehicles());
+            commands.Add(new SearchVehicles());
+            commands.Add(new Exit());
         }
     }
 }

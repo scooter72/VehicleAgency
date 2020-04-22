@@ -24,7 +24,7 @@ namespace VehicleAgency.Commands
                             vehicles = new Vehicle[] { vehicle };
                         }
                         break;
-                    case VehiclesSearchCriteria.Manufacturer:
+                    case VehiclesSearchCriteria.Make:
                         criteria = context.ManufacturerInput.Invoke();
                         vehicles = (context.VehiclesManager.FindVehiclesByManufacturer(criteria));
                         break;

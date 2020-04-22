@@ -13,7 +13,7 @@ namespace VehicleAgency.Commands
                 Vehicle[] vehicles;
                 switch ((VehiclesSortCriteria)selection)
                 {
-                    case VehiclesSortCriteria.Manufacturer:
+                    case VehiclesSortCriteria.Make:
                         vehicles = context.VehiclesManager.SortByManufacturer();
                         break;
                     case VehiclesSortCriteria.ProductionYear:

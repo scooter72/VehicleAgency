@@ -22,6 +22,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -31,6 +32,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -47,16 +49,18 @@
     <Compile Include="Commands\CommandBase.cs" />
     <Compile Include="CommandContext.cs" />
     <Compile Include="Commands\CommandFactory.cs" />
+    <Compile Include="Commands\Exit.cs" />
     <Compile Include="Commands\GetLatestVehicleEntry.cs" />
-    <Compile Include="Commands\PrintToScreent.cs" />
+    <Compile Include="Commands\ICommand.cs" />
+    <Compile Include="Commands\PrintVehiclesToScreen.cs" />
     <Compile Include="Commands\RemoveVehicle.cs" />
-    <Compile Include="Commands\LoadVehicles.cs" />
-    <Compile Include="Commands\SaveVehicles.cs" />
+    <Compile Include="Commands\LoadVehiclesFromFile.cs" />
+    <Compile Include="Commands\SaveVehiclesToFile.cs" />
     <Compile Include="Commands\SearchVehicles.cs" />
     <Compile Include="Commands\SortVehicles.cs" />
     <Compile Include="Commands\Void.cs" />
     <Compile Include="CommandProcessor.cs" />
-    <Compile Include="Vehicles\Repository.cs" />
+    <Compile Include="Vehicles\VehicleInventory.cs" />
     <Compile Include="Command.cs" />
     <Compile Include="Util.cs" />
     <Compile Include="Vehicle.cs" />
